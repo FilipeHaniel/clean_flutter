@@ -1,16 +1,8 @@
+import 'package:clean_flutter/layers/data/repositories/salvar_carro_favorito_repository_impl.dart';
 import 'package:clean_flutter/layers/domain/entities/carro_entity.dart';
-import 'package:clean_flutter/layers/domain/repositories/salvar_carro_favorito_repository.dart';
 import 'package:clean_flutter/layers/domain/usecases/salvar_carro_favorito/salvar_carro_favorito_usecase._impl.dart';
 import 'package:clean_flutter/layers/domain/usecases/salvar_carro_favorito/salvar_carro_favorito_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-class SalvarCarroFavoritoRepositoryImpl
-    implements SalvarCarroFavoritoRepository {
-  @override
-  Future<bool> call(CarroEntity carroEntity) async {
-    return carroEntity.valor > 0;
-  }
-}
 
 void main() {
   test('Espero que salve o carro com sucesso', () async {
@@ -21,7 +13,10 @@ void main() {
 
     var result = await usecase(carro);
 
-    expect(result, true);
+    late bool resultExpect;
+    result.fold((l) => null, (r) => resultExpect = r);
+
+    expect(resultExpect, true);
   });
 
   test('Espero que não salve o carro quando o valor for menor ou igual a zero',
@@ -33,6 +28,9 @@ void main() {
 
     var result = await usecase(carro);
 
-    expect(result, false);
+    late bool resultExpect;
+    result.fold((l) => null, (r) => resultExpect = r);
+
+    expect(resultExpect, false);
   });
 }

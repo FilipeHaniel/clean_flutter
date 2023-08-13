@@ -2,6 +2,7 @@
 import 'package:clean_flutter/layers/data/datasources/get_carros_por_cor_datasource.dart';
 import 'package:clean_flutter/layers/domain/entities/carro_entity.dart';
 import 'package:clean_flutter/layers/domain/repositories/get_carro_por_cor_repository.dart';
+import 'package:dartz/dartz.dart';
 
 class GetCarrosPorCorRepositoryImpl implements GetCarroPorCorRepository {
   final GetCarrosPorCorDatasource _getCarrosPorCorDatasource;
@@ -9,7 +10,7 @@ class GetCarrosPorCorRepositoryImpl implements GetCarroPorCorRepository {
   GetCarrosPorCorRepositoryImpl(this._getCarrosPorCorDatasource);
 
   @override
-  CarroEntity call(String cor) {
+  Either<Exception, CarroEntity> call(String cor) {
     return _getCarrosPorCorDatasource(cor);
   }
 }
